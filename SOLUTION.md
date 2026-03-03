@@ -42,7 +42,7 @@ Sellers are either getting spammed by
 
 A better ranking or matching system would help to solve the _Unqualified leads_ problem
 
-Better rankings means that buyers are more likely to find businesses actually in price range, the correct location or correct industry
+Better rankings means that buyers are more likely to find businesses actually in price range, the correct location or correct industry.
 
 Then sellers get buyers that are worth talking to and sales are more likely to happen
 
@@ -74,9 +74,7 @@ My solution is to:
 
 Right now our score collapses every thing into one number: a business that's a perfect industry match but way out of budget gets the same score as something in budget that's just not in an industry a buyer was considering.
 
-That just doesn't make sense
-
-We muddy whether the buyer is _eligible_ at all versus just _well matched_.
+That just doesn't make sense; we muddy whether the buyer is _eligible_ at all versus just _well matched_.
 
 We should split this distinction up:
 
@@ -92,7 +90,7 @@ We need more research:
 - What do sellers wish buyers knew before messaging?
 - What do serious buyers wish listings told them?
 
-Some possible candidates to check that are typical SMB acuqisition criteria:
+Some possible candidates to check that are typical SMB acquisition criteria:
 
 - Geographic flexibility (hard eligibility)
 
@@ -100,6 +98,8 @@ Some possible candidates to check that are typical SMB acuqisition criteria:
 * Timeline to acquire (soft ranking)
 
 Then instead of burdening sellers, we can first have buyers include this information in their profile first, who are incentivized to fill it out because more complete profiles will surface them higher in seller views (explained in the following section)
+
+We deliberately avoid asking sellers new questions for now since every extra step risks losing them.
 
 ### 3 Two Way Ranking
 
@@ -114,7 +114,7 @@ A buyer trust score has 2 benefits:
 
 How do we know whether we've succeeded?
 
-Our metrics should be
+We need to keep track of metrics and monitor them as changes are being made:
 
 - **KPI:** Percent of messages that move on to serious conversation (3+ exchanges) to track if our changes actually improve the quality of the conversations.
 - **Secondary Metric:** Seller engagements (weekly logins) to track whether our changes improve seller engagement
@@ -125,7 +125,7 @@ Our metrics should be
 Assumptions:
 
 - Users are still using the app, thus changes must be tested before pushed out
-- We are making changes to a larger codebase like Rejigg, which is a more mature codebase
+- We are making changes to a larger codebase like Rejigg (instead of this skeleton project), so care must be taken to incorporate changes
 - Despite implementing these features solo, we're still working within the greater team, so changes must consider features and timelines from other developers
 
 ### Week 1: Seperate Eligibility from Ranking
@@ -201,4 +201,10 @@ I built an initial commit for week 1
 0. Committed the writeup
 1. Implemented eligibility cutoff for out of budget businesses `/lib/matcher.js` + Typescripted some of the files
 2. Reflected ineligibility in the UI `/components/MatchCard.jsx`
-3. Added a quick sanity test
+3. Scaffolded a quick sanity test with vitest
+
+I was tempted to make a more complicated matcher. I wanted to exponentially clamp the "out of budget" businesses so that you would still see businesses only 1% out of budget. I also wanted to add a weight to the budget based off of how close it is to the median between the budget range.
+
+I didn't do this because that's out of scope and adds unneccesary complexity for now.
+
+Up next, we would need to add the ability to message and reach out to a seller but include a pop up if a business is out of range just to explicitly confirm that they know it's out of range. But this assumes we have an authentication and messaging system in place first.
