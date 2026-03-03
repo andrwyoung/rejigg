@@ -1,16 +1,19 @@
-import { buyers } from '../data'
-import { computeMatchScore } from '../matcher'
-import { fmt } from '../utils'
+import { buyers } from "../data";
+import { computeMatchScore } from "../lib/matcher";
+import { fmt } from "../utils";
 
 export default function SellerDashboard({ business }) {
-  const tags = business.industry_tags || []
+  const tags = business.industry_tags || [];
 
   const buyerMatches = buyers
-    .map((buyer) => ({
-      buyer,
-      score: computeMatchScore(buyer, business).score,
-    }))
-    .sort((a, b) => b.score - a.score)
+    .map((buyer) => {
+      const match = computeMatchScore(buyer, business);
+      return { buyer, score: match.score, eligible: match.eligible };
+    })
+    .sort((a, b) => {
+      if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
+      return b.score - a.score;
+    });
 
   return (
     <div className="page">
@@ -43,8 +46,10 @@ export default function SellerDashboard({ business }) {
         const rev =
           buyer.target_revenue_min != null
             ? `$${fmt(buyer.target_revenue_min)}\u2013$${fmt(buyer.target_revenue_max)}`
-            : 'No range set'
-        const buyerTags = (buyer.target_industries || []).slice(0, 3).join(', ')
+            : "No range set";
+        const buyerTags = (buyer.target_industries || [])
+          .slice(0, 3)
+          .join(", ");
         return (
           <div key={buyer.id} className="buyer-row">
             <div>
@@ -54,8 +59,8 @@ export default function SellerDashboard({ business }) {
               </div>
             </div>
           </div>
-        )
+        );
       })}
     </div>
-  )
+  );
 }

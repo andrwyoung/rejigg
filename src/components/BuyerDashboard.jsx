@@ -1,15 +1,15 @@
-import { businesses } from '../data'
-import { rankBusinessesForBuyer } from '../matcher'
-import { fmt } from '../utils'
-import MatchCard from './MatchCard'
+import { businesses } from "../data";
+import { rankBusinessesForBuyer } from "../lib/rankBusinesses";
+import { fmt } from "../utils";
+import MatchCard from "./MatchCard";
 
 export default function BuyerDashboard({ buyer }) {
-  const matches = rankBusinessesForBuyer(buyer, businesses)
-  const tags = buyer.target_industries || []
+  const matches = rankBusinessesForBuyer(buyer, businesses);
+  const tags = buyer.target_industries || [];
   const rev =
     buyer.target_revenue_min != null
       ? `$${fmt(buyer.target_revenue_min)} \u2013 $${fmt(buyer.target_revenue_max)}`
-      : 'No range set'
+      : "No range set";
 
   return (
     <div className="page">
@@ -20,14 +20,14 @@ export default function BuyerDashboard({ buyer }) {
 
       <div className="profile-bar">
         <div>
-          <span className="label">Industries:</span>{' '}
+          <span className="label">Industries:</span>{" "}
           {tags.length > 0
             ? tags.map((t) => (
                 <span key={t} className="tag">
                   {t}
                 </span>
               ))
-            : 'None set'}
+            : "None set"}
         </div>
         <div>
           <span className="label">Revenue range:</span> {rev}
@@ -36,11 +36,11 @@ export default function BuyerDashboard({ buyer }) {
 
       <div className="results-count">{matches.length} businesses</div>
       {matches.map((match) => {
-        const biz = businesses.find((b) => b.id === match.business_id)
+        const biz = businesses.find((b) => b.id === match.business_id);
         return biz ? (
           <MatchCard key={biz.id} business={biz} match={match} />
-        ) : null
+        ) : null;
       })}
     </div>
-  )
+  );
 }
