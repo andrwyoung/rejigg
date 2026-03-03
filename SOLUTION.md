@@ -198,7 +198,7 @@ Tier C: Minimal profile
 
 I built an initial commit for week 1
 
-1. Implemented eligibility cutoff for out of budget businesses `/matcher.js`
-2. Reordered the sorting based off of the cutoff `/components/SellerDashboard.jsx`
-3. Made that cutoff visible in the UI `/components/MatchCard.jsx`
-4. Adding a very quick test `/tests/matchScore.js`
+0. Committed the writeup
+1. Implemented eligibility cutoff for out of budget businesses `/lib/matcher.js` + Typescripted some of the files
+2. Reflected ineligibility in the UI `/components/MatchCard.jsx`
+3. Added a quick sanity test

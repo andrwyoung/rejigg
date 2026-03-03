@@ -179,6 +179,21 @@ body {
 }
 
 .match-card:hover { border-color: #999; }
+.match-card--ineligible { opacity: 0.5; }
+
+.badge-ineligible {
+  flex-shrink: 0;
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #b94040;
+  background: #fde8e8;
+  border: 1px solid #f5c0c0;
+  border-radius: 4px;
+  padding: 0.15rem 0.45rem;
+  white-space: nowrap;
+}
+
 .match-info { flex: 1; }
 
 .match-name {

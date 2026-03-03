@@ -1,8 +1,9 @@
-import { fmt } from '../utils'
+import { fmt } from "../utils";
 
-export default function MatchCard({ business }) {
+export default function MatchCard({ business, match }) {
+  const ineligible = match?.eligible === false;
   return (
-    <div className="match-card">
+    <div className={`match-card${ineligible ? " match-card--ineligible" : ""}`}>
       <div className="match-info">
         <div className="match-name">{business.name}</div>
         <div className="match-description">{business.description}</div>
@@ -18,6 +19,7 @@ export default function MatchCard({ business }) {
           ))}
         </div>
       </div>
+      {ineligible && <span className="badge-ineligible">Out of range</span>}
     </div>
-  )
+  );
 }
